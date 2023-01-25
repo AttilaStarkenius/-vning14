@@ -8,5 +8,7 @@
         public TimeSpan Duration { get; set; }
         public DateTime EndTime { get { return StartTime + Duration; } }
         public String Description { get; set; }
+        public ICollection<ApplicationUserGymClass> AttendingMembers { get; set; }
+
     }
 }
