@@ -23,6 +23,20 @@ namespace Övning14
 
             var app = builder.Build();
 
+            // initialize database
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                var adminPW = "PasswordThatMeetstheRequirements";
+
+                try
+                {
+                    SeedData.InitAsync(db, services, adminPW).GetAwaiter
+                }
+            }
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
