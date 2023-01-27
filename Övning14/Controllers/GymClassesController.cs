@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -70,7 +72,9 @@ namespace Övning14.Controllers
         }
 
         // GET: GymClasses/Create
-        [Authorize]
+        //[Authorize]
+        [Authorize(Roles = "Administrator")]
+
         public IActionResult Create()
         {
             return View();
@@ -81,7 +85,9 @@ namespace Övning14.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        //[Authorize]
+        [Authorize(Roles = "Administrator")]
+
         public async Task<IActionResult> Create([Bind("Id,Name,StartTime,Duration,Description")] GymClass gymClass)
         {
             if (ModelState.IsValid)
@@ -94,7 +100,9 @@ namespace Övning14.Controllers
         }
 
         // GET: GymClasses/Edit/5
-        [Authorize]
+        //[Authorize]
+        [Authorize(Roles = "Administrator")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.GymClasses == null)
@@ -115,7 +123,9 @@ namespace Övning14.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        //[Authorize]
+        [Authorize(Roles = "Administrator")]
+
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartTime,Duration,Description")] GymClass gymClass)
         {
             if (id != gymClass.Id)
@@ -147,7 +157,9 @@ namespace Övning14.Controllers
         }
 
         // GET: GymClasses/Delete/5
-        [Authorize]
+        //[Authorize]
+        [Authorize(Roles = "Administrator")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.GymClasses == null)
@@ -168,7 +180,9 @@ namespace Övning14.Controllers
         // POST: GymClasses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        //[Authorize]
+        [Authorize(Roles = "Administrator")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.GymClasses == null)

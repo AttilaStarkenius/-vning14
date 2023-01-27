@@ -5,13 +5,19 @@
 }
 
 <h1>Index</h1>
+@if (User.IsInRole("Admin"))
+{
+    
+        <a asp-action="Create">Create New</a>
+    
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => Input.FullName)
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -28,7 +34,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.Where(e => e.StartTime < DateTime.Now)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -44,16 +50,28 @@
             </td>                 
             
             <td>
+        }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a asp-action="BookingToggle" asp-route-id="@item.Id">Book</a><span> | </span>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><span> | </span>
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a><span> | </span>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a><span> | </span>
+                        <a asp-action="BookedClasses" asp-route-id="@item.Id">Booked Classes</a> <span> | </span>
+                        <a asp-action="History" asp-route-id="@item.Id">History</a> <span> | </span>
+
+                   
                     }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><span> | </span>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> <span> | </span>                       
+
+                    }
+                    }
+
             </td>
                 
         </tr>
+
+@*    </tbody>
+</table>*@
 }
-    </tbody>
-</table>

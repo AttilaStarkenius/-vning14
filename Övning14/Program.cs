@@ -33,7 +33,12 @@ namespace Övning14
 
                 try
                 {
-                    SeedData.InitAsync(db, services, adminPW).GetAwaiter
+                    SeedData.InitAsync(db, services, adminPW).GetAwaiter().GetResult();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
                 }
             }
 

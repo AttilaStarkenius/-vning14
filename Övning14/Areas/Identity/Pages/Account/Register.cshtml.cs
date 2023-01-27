@@ -46,6 +46,11 @@ namespace Övning14.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
+        //public string FirstName { get; set; }
+        //public string LastName { get; set; }
+        //public string FullName => @"{FirstName} {LastName}";
+        //public DateTime TimeOfRegistration { get; set; }
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -71,6 +76,11 @@ namespace Övning14.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string FullName => @"{FirstName} {LastName}";
+            public DateTime TimeOfRegistration { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -114,6 +124,9 @@ namespace Övning14.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.TimeOfRegistration = DateTime.Now;
+
+                ApplicationUser applicationUser = new ApplicationUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
